@@ -27,6 +27,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   String inputText = "";
+  String outputLanguage;
   TranslationObject translation;
 
   @override
@@ -45,9 +46,23 @@ class _MainPageState extends State<MainPage> {
                 labelText: "Enter the text to translate"
               ),
             ),
+            DropdownButton<String>(
+              value: outputLanguage ?? 'et',
+                onChanged: (lang) {
+                  setState(() {
+                    outputLanguage = lang;
+                  });
+                },
+                items: <String>['et', 'lv', 'lt', 'en', 'de']
+                .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+            }).toList()),
             ElevatedButton(child: Text("Translate"), onPressed: () async {
 
-              translation = (await fetchTranslation(inputText));
+              translation = (await fetchTranslation(inputText, language: outputLanguage ?? 'et'));
               setState(() {
 
               });
