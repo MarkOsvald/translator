@@ -7,14 +7,14 @@ import 'package:http/http.dart';
 const String endpointServer= 'api.tartunlp.ai';
 const String endpointParam = '/translation/v2';
 
-Future<TranslationObject> fetchTranslation(String inputText) async {
+Future<TranslationObject> fetchTranslation(String inputText, {String language = 'et'}) async {
   Response response = await http.post(Uri.https(endpointServer, endpointParam),
       headers: <String, String>{
     'Content-Type': 'application/json',
       },
       body: jsonEncode(<String, String>{
         'text': inputText,
-        'tgt': "et",
+        'tgt': language,
         'domain': "inf"
       }));
   print(response.body);
